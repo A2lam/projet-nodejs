@@ -35,7 +35,9 @@ class UsersServices {
       .then((db) => {
         return db
           .collection(this.COLLECTION_NAME)
-          .find(term ? { $text: { $search: term } } : null)
+          .find(term ? { $text: { $search: term } } : null, {
+            _id: 1, firstName: 1, lastName: 1, email: 1, password: 0,
+          })
           .skip(offset)
           .limit(first)
           .toArray();
