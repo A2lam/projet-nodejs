@@ -17,4 +17,12 @@ MongoClient.connect(url, (err, client) => {
 
       console.error(error); // eslint-disable-line no-console
     });
+
+  client.db(name).collection('users').createIndex({ firstName: 'text', lastName: 'text' }, { default_language: 'none' })
+    .then(() => client.close())
+    .catch((error) => {
+      client.close();
+
+      console.error(error);
+    });
 });
